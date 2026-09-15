@@ -38,25 +38,6 @@ SCBench and ultra-long RULER.
 
 ## Usage
 
-### Core Modules
-
-```
-├── src/deltarecall/               # Core DeltaRecall implementation
-│   ├── qwen35_gras_hmc.py         # install_gras_hmc / load_memory_adapter / GRASQwen35Attention
-│   ├── gras_hmc_selector.py       # write-demand recurrence, top-K selection, memory readout
-│   ├── run_qwen35_longbench_v2.py # shared prompt / prefill / byte-accounting helpers
-│   ├── train_qwen35_memory.py     # self-distillation trainer for the memory adapter
-│   ├── run_gras_insight.py        # controlled write-demand / head-role diagnostics
-│   ├── fit_gras_head_calibration.py            # semantic head-weight fitting
-│   ├── fit_gras_hard_negative_calibration.py   # hard-negative calibration refinement
-│   └── build_layer_budget.py      # optional per-layer Selective-budget allocation
-├── model/                         # Trained memory adapters (memory_* weights only)
-│   ├── deltarecall-9b/            #   Qwen3.5-9B  adapter + config
-│   └── deltarecall-27b/           #   Qwen3.5-27B adapter + config
-├── calibration/                   # Semantic-calibrated head weights (per model)
-└── scripts/                       # inference.py (plug-and-play demo), merge_weights.py
-```
-
 ### Installation
 
 **Default environment:** Python 3.11, PyTorch 2.5+, a Qwen3.5-capable
@@ -79,10 +60,10 @@ Adapters store only the per-layer `memory_*` parameters (rank-64 low-rank
 readout, per-head write gate/decay, and a learned fusion scale). The frozen
 Qwen3.5 backbone is downloaded separately from its official source.
 
-|  base model | memory module |                                        adapter                                       |                                           calibration                                          |
-| :---------: | :-----------: | :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
-|  Qwen3.5-9B | GatedDeltaNet |  [`model/deltarecall-9b/memory_adapter.pt`](model/deltarecall-9b/memory_adapter.pt)  |  [`calibration/deltarecall-9b-calibration.json`](calibration/deltarecall-9b-calibration.json)  |
-| Qwen3.5-27B | GatedDeltaNet | [`model/deltarecall-27b/memory_adapter.pt`](model/deltarecall-27b/memory_adapter.pt) | [`calibration/deltarecall-27b-calibration.json`](calibration/deltarecall-27b-calibration.json) |
+|  base model |                                         adapter                                       |                                           calibration                                          |
+| :---------: |  :----------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
+|  Qwen3.5-9B |   [`model/deltarecall-9b/memory_adapter.pt`](model/deltarecall-9b/memory_adapter.pt)  |  [`calibration/deltarecall-9b-calibration.json`](calibration/deltarecall-9b-calibration.json)  |
+| Qwen3.5-27B |  [`model/deltarecall-27b/memory_adapter.pt`](model/deltarecall-27b/memory_adapter.pt) | [`calibration/deltarecall-27b-calibration.json`](calibration/deltarecall-27b-calibration.json) |
 
 ### Plug-and-Play Inference
 
@@ -196,19 +177,6 @@ python -m deltarecall.run_qwen35_longbench_v2 \
 > prompt/eval loop. The external cache-compression baselines used in the paper
 > (window / AHN / Compactor / CompressKV) are not included in this release.
 
-## Repository Layout
-
-```
-DeltaRecall/
-├── README.md
-├── LICENSE
-├── pyproject.toml
-├── requirements.txt
-├── model/            # trained memory adapters (+ sanitized configs)
-├── calibration/      # semantic-calibrated head weights
-├── scripts/          # inference.py, merge_weights.py
-└── src/deltarecall/  # core package (see Core Modules)
-```
 
 ## Acknowledgments
 
