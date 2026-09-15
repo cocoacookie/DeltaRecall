@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=67", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deltarecall"
+version = "0.1.0"
+description = "DeltaRecall: write-demand-driven plug-and-play hybrid memory for long-context LLMs"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "torch>=2.4",
+  "transformers>=4.51",
+  "safetensors>=0.4",
+]
+
+[project.optional-dependencies]
+# Adapter training (self-distillation) reads sharded parquet corpora.
+train = [
+  "pyarrow>=15",
+]
+# End-to-end LongBench / SCBench / RULER evaluation drivers.
+eval = [
+  "numpy>=1.26",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["deltarecall*"]
+namespaces = true

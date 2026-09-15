@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+
+# Local experiment outputs (do not commit eval dumps / merged checkpoints)
+results/
+outputs/
+merged_ckpt/
+*.log

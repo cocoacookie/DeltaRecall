@@ -1,0 +1,10 @@
+# Core runtime (plug-and-play inference + adapter loading)
+torch>=2.4
+transformers>=4.51
+safetensors>=0.4
+
+# Adapter training (self-distillation from the frozen FullKV teacher)
+pyarrow>=15
+
+# Evaluation drivers (LongBench v2 / SCBench / RULER)
+numpy>=1.26
