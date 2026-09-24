@@ -46,7 +46,7 @@ SCBench and ultra-long RULER.
 
 ```bash
 # 1. Clone and enter the repo
-git clone https://github.com/<your-org>/DeltaRecall.git
+git clone https://github.com/cocoacookie/DeltaRecall.git
 cd DeltaRecall
 
 # 2. Install DeltaRecall in editable mode
